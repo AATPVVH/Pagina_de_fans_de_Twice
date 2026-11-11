@@ -1,0 +1,72 @@
+:root {
+    --page: #12091c;
+    --panel: rgba(190, 190, 196, .52);
+    --panel-edge: rgba(255, 255, 255, .14);
+    --btn: #000;
+    --btn-text: #fff;
+    --help: #ff0100;
+    --font: "Cinzel", "Trajan Pro", Georgia, serif;
+    /* 1 unidad = 1px del diseño original (610 × 394), escalada al tamaño de la ventana */
+    --u: min(100vh / 394, 100vw / 610);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @supports (height: 100dvh) { :root { --u: min(100dvh / 394, 100vw / 610); } }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --page: #12091c; } }
+  :root[data-theme="dark"] { --page: #12091c; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--page); }
+  body { position: relative; overflow: hidden; }
+  img { display: block; user-select: none; -webkit-user-drag: none; }
+
+  /* ── Fondo ─────────────────────────────────────────────── */
+
+  /* Capa 2: la imagen nítida a toda la altura, pegada a la derecha, con el borde izquierdo difuminado */
+  .bg {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-content: center;  /* Centra verticalmente */
+  align-items: center;    /* Centra verticalmente en el contenedor */
+  min-height: 100vh;      /* Opcional: para centrar en toda la pantalla */
+}
+
+  /* Imagen de la esquina */
+  .corner { position: absolute; right: calc(var(--u) * 3); top: calc(var(--u) * 8); width: calc(var(--u) * 92); }
+
+  /* ── Panel lateral translúcido ─────────────────────────── */
+  .side {
+    position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--u) * 155);
+    background: var(--panel);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-right: 1px solid var(--panel-edge);
+  }
+  .logo { position: absolute; left: calc(var(--u) * 4);   top: calc(var(--u) * 4);  width: calc(var(--u) * 137); }
+  .mini { position: absolute; left: calc(var(--u) * 117); top: calc(var(--u) * 74); width: calc(var(--u) * 40); }
+  .miniFA { position: absolute; left: calc(var(--u) * 120); top: calc(var(--u) * 190); width: calc(var(--u) * 40); }
+  .miniL { position: absolute; left: calc(var(--u) * 117); top: calc(var(--u) * 130 ); width: calc(var(--u) * 40); }
+
+  /* ── Botones ───────────────────────────────────────────── */
+
+  /* ── Botones ───────────────────────────────────────────── */
+  .btn {
+    position: absolute;
+    left: calc(var(--u) * var(--x)); top: calc(var(--u) * var(--y));
+    width: calc(var(--u) * var(--w)); height: calc(var(--u) * 52);
+    display: grid; place-items: center;
+    border-radius: 999px;
+    background: var(--btn); color: var(--btn-text);
+    font: 900 calc(var(--u) * 20)/1 var(--font);
+    letter-spacing: .01em;
+    text-decoration: none;
+    transition: transform .15s ease, filter .15s ease;
+  }
+  .btn:hover { transform: scale(1.04); filter: brightness(1.25); }
+  .btn:active { transform: scale(.98); }
+  .btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .btn.help { background: var(--help); }
+  .btn.help:hover { filter: brightness(1.1); }
+
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
